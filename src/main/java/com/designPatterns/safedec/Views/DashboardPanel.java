@@ -17,6 +17,14 @@ public class DashboardPanel extends javax.swing.JPanel {
      */
     public DashboardPanel() {
         initComponents();
+        javax.swing.table.DefaultTableModel sensorModel = (javax.swing.table.DefaultTableModel) SensorsTable.getModel();
+        sensorModel.addRow(new Object[]{"1", "Fire Detector", "$10","02/02/2020","X,Y"});
+        sensorModel.addRow(new Object[]{"2", "Motion Sensor(With Camera)", "$20","02/02/2020","X,Y"});
+        sensorModel.addRow(new Object[]{"3", "Motion Sensor(Without Camera)", "18","02/02/2020","X,Y"});
+
+        javax.swing.table.DefaultTableModel alarmModel = (javax.swing.table.DefaultTableModel) AlarmTable.getModel();
+        alarmModel.addRow(new Object[]{"1", "1","03/02/2020","Fire detector alarm"});
+
     }
 
     /**
@@ -28,30 +36,110 @@ public class DashboardPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        statusLabel = new javax.swing.JLabel();
+        statusCodeLabel = new javax.swing.JLabel();
+        statusToggleButton2 = new javax.swing.JToggleButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        SensorsTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        AlarmTable = new javax.swing.JTable();
 
-        jLabel1.setText("Placeholder Dashboard");
+        statusLabel.setText("Status");
+
+        statusCodeLabel.setText("Active");
+
+        statusToggleButton2.setText("Deactivate");
+        statusToggleButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusToggleButton2ActionPerformed(evt);
+            }
+        });
+
+        SensorsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object[][]{
+
+            },
+            new String [] {
+                "Sensor Id", "Sensor Type", "Sensor Cost", "Sensor Install Date", "Sensor Position"
+            }
+        ));
+        SensorsTable.setSize(new java.awt.Dimension(1500, 1500));
+        jScrollPane1.setViewportView(SensorsTable);
+
+        jLabel1.setText("Sensors");
+
+        jLabel4.setText("Alarms");
+
+        AlarmTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object[][]{
+
+            },
+            new String [] {
+                "Alarm Id", "Related Sensor Id", "Occurance date", "Memo"
+            }
+        ));
+        jScrollPane2.setViewportView(AlarmTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(jLabel1)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(statusLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(statusCodeLabel)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 403, Short.MAX_VALUE)
+                                .addComponent(statusToggleButton2)))
+                        .addGap(31, 31, 31))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(127, 127, 127)
+                .addGap(23, 23, 23)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(statusLabel)
+                    .addComponent(statusCodeLabel)
+                    .addComponent(statusToggleButton2))
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void statusToggleButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusToggleButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_statusToggleButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable AlarmTable;
+    private javax.swing.JTable SensorsTable;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel statusCodeLabel;
+    private javax.swing.JLabel statusLabel;
+    private javax.swing.JToggleButton statusToggleButton2;
     // End of variables declaration//GEN-END:variables
 }
