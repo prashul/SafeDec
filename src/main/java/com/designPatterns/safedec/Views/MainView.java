@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package safedec.views;
+package com.designPatterns.safedec.Views;
 
+import java.awt.Color;
 import javax.swing.JPanel;
 
 /**
@@ -31,6 +32,8 @@ public class MainView extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
+        dashboardMenuPanel = new javax.swing.JPanel();
+        javax.swing.JLabel dashboardMenuLabel = new javax.swing.JLabel();
         productMenuPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         profileMenuPanel = new javax.swing.JPanel();
@@ -52,6 +55,35 @@ public class MainView extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(67, 104, 145));
         jPanel5.setLayout(new java.awt.GridLayout(0, 1, 0, 5));
+
+        dashboardMenuPanel.setBackground(new java.awt.Color(0, 128, 145));
+        dashboardMenuPanel.setPreferredSize(new java.awt.Dimension(300, 40));
+
+        dashboardMenuLabel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        dashboardMenuLabel.setForeground(new java.awt.Color(255, 255, 255));
+        dashboardMenuLabel.setText("DASHBOARD");
+        dashboardMenuLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                dashboardMenuLabelMouseClicked(evt);
+            }
+
+        });
+
+        javax.swing.GroupLayout dashboardMenuPanelLayout = new javax.swing.GroupLayout(dashboardMenuPanel);
+        dashboardMenuPanel.setLayout(dashboardMenuPanelLayout);
+        dashboardMenuPanelLayout.setHorizontalGroup(
+            dashboardMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, dashboardMenuPanelLayout.createSequentialGroup()
+                .addGap(0, 29, Short.MAX_VALUE)
+                .addComponent(dashboardMenuLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        dashboardMenuPanelLayout.setVerticalGroup(
+            dashboardMenuPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(dashboardMenuLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+        );
+
+        jPanel5.add(dashboardMenuPanel);
 
         productMenuPanel.setBackground(new java.awt.Color(0, 128, 145));
         productMenuPanel.setPreferredSize(new java.awt.Dimension(300, 40));
@@ -179,15 +211,15 @@ public class MainView extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(285, Short.MAX_VALUE))
+                .addContainerGap(240, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(67, 104, 145));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI Light", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("  Safe Dec");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Safe Dec");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -229,9 +261,24 @@ public class MainView extends javax.swing.JFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
+        JPanel dasboardPanel = new DashboardPanel();
+        jPanel3.removeAll();
+        jPanel3.add(dasboardPanel);
+        jPanel3.revalidate();
+        jPanel3.repaint();
         pack();
     }// </editor-fold>//GEN-END:initComponents
- 
+
+
+    private void dashboardMenuLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuLabelMouseClicked
+        // TODO add your handling code here:
+        JPanel dasboardPanel = new DashboardPanel();
+        jPanel3.removeAll();
+        jPanel3.add(dasboardPanel);
+        jPanel3.revalidate();
+        jPanel3.repaint();
+        System.out.println("dash");
+    }//GEN-LAST:event_MenuLabelMouseClicked
 
     private void profileMenuLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileMenuLabelMouseClicked
         // TODO add your handling code here:
@@ -284,6 +331,7 @@ public class MainView extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel accountsMenuPanel;
     private javax.swing.JPanel billingMenuPanel;
+    private javax.swing.JPanel dashboardMenuPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel5;
