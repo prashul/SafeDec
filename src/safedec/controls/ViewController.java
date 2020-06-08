@@ -5,10 +5,14 @@
  */
 package safedec.controls;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import safedec.views.MainView;
 import safedec.connectionpooling.JDBCConnectionPool;
 import safedec.connectionpooling.ObjectPool;
 import safedec.models.Customer;
+import safedec.models.Sensor;
+import safedec.service.SensorService;
 import safedec.views.LoginView;
 import safedec.views.SignupView;
 
@@ -101,6 +105,18 @@ public class ViewController {
 //            maxSensorId.set(maxID);
 //        }
     }
+       public void updateSensorScreenPos(Sensor sensorInfo, int screenPosX, int screenPosY) {
+        String newPos = screenPosX + "," + screenPosY;
+        SensorService service = new SensorService();
+        if( service.updateSensorPosition(sensorInfo,screenPosX, screenPosY) )
+        {
+            System.out.println("safedec.controls.ViewController.updateSensorScreenPos()+-----------------------------"+ newPos);
+          Logger.getLogger(ViewController.class.getName()).log(Level.INFO, null, "Sensor position updated");
+        }
+        else
+             Logger.getLogger(ViewController.class.getName()).log(Level.SEVERE, null, "Error while updating sensor position");
+    }
+    
      
      public void signup()
      {

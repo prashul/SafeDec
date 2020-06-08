@@ -5,6 +5,9 @@
  */
 package safedec.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -22,7 +25,8 @@ public class Customer {
     private String secondaryContactNumber;
     private int     customerId;
     private String  emailAddress;
-
+    private List< Section > sectionId;
+    
     public Customer() {
     }
 
@@ -36,10 +40,19 @@ public class Customer {
         this.propertyAddress = propertyAddress;
         this.emailAddress = emailAddress;
         this.secondaryContactNumber = secondaryContactNumber;
+        this.sectionId = new ArrayList< Section >();
     }
 
     public Customer(int customerId, String emailAddress) {
        //TODO
+    }
+
+    public List<Section> getSectionId() {
+        return sectionId;
+    }
+
+    public void setSectionId(List<Section> sectionId) {
+        this.sectionId = sectionId;
     }
 
     public String getCustomerName() {

@@ -9,12 +9,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import safedec.connectionpooling.ObjectPool;
 import safedec.controls.ViewController;
 import safedec.models.Customer;
 import safedec.models.CustomerBuilder;
+import safedec.models.Location;
+import safedec.models.Section;
+import safedec.models.MotionSensor;
 
 /**
  *
@@ -31,7 +36,9 @@ private static final String PHONE_NUMBER              = "PHONE_NUMBER";
 private static final String PRIMARY_CONTACT_NUMBER    = "PRIMARY_CONTACT_NUMBER";
 private static final String PROPERTY_ADDRESS          = "PROPERTY_ADDRESS";
 private static final String SECONDARY_CONTACT_NUMBER  = "SECONDARY_CONTACT_NUMBER";
-   
+private static final String SECTION_ID                = "SECTION_ID";
+private static final String MAP_LOCATION                       = "MAP_LOCATION";
+
 private static final String FIND_BY_EMAIL_ADDRESS_QUERY  = "SELECT `customer`.`CUSTOMER_ID`,\n" +
 "    `customer`.`CUSTOMER_NAME`,\n" +
 "    `customer`.`EMAIL_ADDRESS`,\n" +
@@ -66,6 +73,9 @@ private static final String UPDATE_CUSTOMER ="UPDATE customer SET\n" +
 "`SECONDARY_CONTACT_NUMBER` = ?\n" +
 "WHERE `CUSTOMER_ID` = ?;";
 
+ private String FIND_ALL_SECTION_IDS_BY_CUSTOMER_ID = "SELECT * FROM customer_section_relation where customer_Id=?";
+   
+
     public boolean insertCustomer(Customer customer) {
        ObjectPool pool =  ViewController.getInstance().getConnectionPool();
        Connection conn = (Connection)pool.getObject();
@@ -96,6 +106,7 @@ private static final String UPDATE_CUSTOMER ="UPDATE customer SET\n" +
         {
            try {
                stmt.close();
+               conn.commit();
                pool.releaseObject(conn);
            } catch (SQLException ex) {
                Logger.getLogger(CustomerDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -180,6 +191,7 @@ private static final String UPDATE_CUSTOMER ="UPDATE customer SET\n" +
         {
            try {
                stmt.close();
+               conn.commit();
                pool.releaseObject(conn);
            } catch (SQLException ex) {
                Logger.getLogger(CustomerDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
@@ -187,6 +199,50 @@ private static final String UPDATE_CUSTOMER ="UPDATE customer SET\n" +
            }
         }
     return flag;
+    }
+
+    /**
+     *
+     * @param customer
+     * @return
+     */
+    @Override
+    public List< Section> getAllSections(Customer customer) {
+       ObjectPool pool =  ViewController.getInstance().getConnectionPool();
+       Connection conn = (Connection)pool.getObject();
+       ResultSet rs = null;
+       List< Section > sections = null;
+       PreparedStatement  stmt = null;
+       boolean flag = false;
+        try
+        {
+            stmt = conn.prepareStatement(FIND_ALL_SECTION_IDS_BY_CUSTOMER_ID);
+            stmt.setInt(1, customer.getCustomerId());
+            rs = stmt.executeQuery();
+            sections = new ArrayList< Section >();
+            while( rs.next() )
+            {
+                Section section = new Section(rs.getInt( SECTION_ID ), rs.getString(MAP_LOCATION));
+                sections.add( section);
+            }
+            flag = true;
+        }
+        catch( SQLException e)
+        {
+           Logger.getLogger(CustomerDAOImpl.class.getName()).log(Level.SEVERE, null, e);
+           flag = false;
+        }
+        finally
+        {
+           try {
+               stmt.close();
+               pool.releaseObject(conn);
+           } catch (SQLException ex) {
+               Logger.getLogger(CustomerDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
+               flag = false;
+           }
+        }
+    return sections;
     }
 
 

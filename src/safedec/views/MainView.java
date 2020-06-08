@@ -235,13 +235,17 @@ public class MainView extends javax.swing.JFrame {
 
     private void profileMenuLabelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_profileMenuLabelMouseClicked
         // TODO add your handling code here:
-        JPanel profilePanel = new ProfilePanel();
-                jPanel3.removeAll();
-        jPanel3.add(profilePanel);
-        jPanel3.revalidate();
-        jPanel3.repaint();
-                System.out.println("profile");
+        //        JPanel profilePanel = new ProfilePanel();
+        //                jPanel3.removeAll();
+        //        jPanel3.add(profilePanel);
+        //        jPanel3.revalidate();
+        //        jPanel3.repaint();
+        //                System.out.println("profile");
 
+        JPanel mapView = new MapView();
+       jPanel3.add( mapView );
+       jPanel3.revalidate();
+       jPanel3.repaint();;
     }//GEN-LAST:event_profileMenuLabelMouseClicked
 
 

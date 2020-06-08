@@ -1,4 +1,9 @@
-package com.designPatterns.safedec.Views;
+package safedec.views;
+
+import java.util.List;
+import safedec.models.Alarm;
+import safedec.models.MotionSensor;
+import safedec.service.DashBoardService;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,18 +20,55 @@ public class DashboardPanel extends javax.swing.JPanel {
     /**
      * Creates new form DashboardPanel
      */
+    
     public DashboardPanel() {
         initComponents();
+        updateComponents();
         javax.swing.table.DefaultTableModel sensorModel = (javax.swing.table.DefaultTableModel) SensorsTable.getModel();
-        sensorModel.addRow(new Object[]{"1", "Fire Detector", "$10","02/02/2020","X,Y"});
-        sensorModel.addRow(new Object[]{"2", "Motion Sensor(With Camera)", "$20","02/02/2020","X,Y"});
-        sensorModel.addRow(new Object[]{"3", "Motion Sensor(Without Camera)", "18","02/02/2020","X,Y"});
-
-        javax.swing.table.DefaultTableModel alarmModel = (javax.swing.table.DefaultTableModel) AlarmTable.getModel();
-        alarmModel.addRow(new Object[]{"1", "1","03/02/2020","Fire detector alarm"});
+     
+      
 
     }
 
+    private void updateComponents()
+    {
+        DashBoardService dashBoardService = new DashBoardService();
+        List<MotionSensor> allSensors = dashBoardService.getAllSensors();
+        List< Alarm > allAlarms = dashBoardService.getAllAlarmSensors();
+        javax.swing.table.DefaultTableModel sensorModel = (javax.swing.table.DefaultTableModel) SensorsTable.getModel();
+        
+        for( MotionSensor sensor : allSensors )
+        {
+            Object[]  tableRow = new Object[8];
+            tableRow[0]= sensor.getId();
+            tableRow[1]= sensor.getSectionId();
+            tableRow[2]= sensor.getIpAddress();
+            tableRow[3]= sensor.getPortNumber();
+            tableRow[4]= sensor.getLoc().getX1()+","+sensor.getLoc().getY1();
+            tableRow[5]= sensor.getPrice();
+            tableRow[6] = sensor.isIsCamera();
+            
+             sensorModel.addRow(tableRow);
+        }
+        
+                javax.swing.table.DefaultTableModel alarmModel = (javax.swing.table.DefaultTableModel) AlarmTable.getModel();
+         for( Alarm alarm : allAlarms )
+         {
+            Object[]  tableRow = new Object[8];
+            tableRow[0]= alarm.getId();
+            tableRow[1]= alarm.getSectionId();
+            tableRow[2]= alarm.getIpAddress();
+            tableRow[3]= alarm.getPortNumber();
+            tableRow[4]= alarm.getLoc().getX1()+","+alarm.getLoc().getY1();
+            tableRow[5]= alarm.getPrice();
+            
+             alarmModel.addRow(tableRow);
+             
+         }
+        
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -62,10 +104,10 @@ public class DashboardPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Sensor Id", "Sensor Type", "Sensor Cost", "Sensor Install Date", "Sensor Position"
+                "Sensor Id", "Section Id", "Ip Address", "Port Number", "Pos1", "Pos2", "Price","isCamera"
             }
         ));
-        SensorsTable.setSize(new java.awt.Dimension(1500, 1500));
+        SensorsTable.setToolTipText("");
         jScrollPane1.setViewportView(SensorsTable);
 
         jLabel1.setText("Sensors");
@@ -77,7 +119,7 @@ public class DashboardPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Alarm Id", "Related Sensor Id", "Occurance date", "Memo"
+                "Alarm Id", "Section Id", "Ip Address", "Port Number", "Pos1", "Price"
             }
         ));
         jScrollPane2.setViewportView(AlarmTable);
@@ -122,7 +164,7 @@ public class DashboardPanel extends javax.swing.JPanel {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

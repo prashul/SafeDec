@@ -1,11 +1,13 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 package safedec.dao;
 
+import java.util.List;
 import safedec.models.Customer;
+import safedec.models.Section;
 
 /**
  *
@@ -22,5 +24,7 @@ public interface CustomerDAO {
      * @return
      */
     boolean updateCustomer( Customer customer);
+    
+    List< Section > getAllSections( Customer customer );
    
 }

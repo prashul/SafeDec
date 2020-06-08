@@ -5,7 +5,9 @@
  */
 package safedec;
 
+import safedec.views.DashboardPanel;
 import safedec.controls.ViewController;
+import safedec.views.MapView;
 
 /**
  *
@@ -17,6 +19,9 @@ public class SafeDec {
     public static void main(String[] args) {
         
                 ViewController.getInstance();
+            //   new DashboardPanel().setVisible(true);
+              
+            
               
            }
    
